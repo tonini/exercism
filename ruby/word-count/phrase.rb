@@ -3,7 +3,7 @@ class Phrase
   attr_reader :storage
 
   def initialize(phrase)
-    words = WordScanner.new(phrase).split!
+    words = WordScanner.scan(phrase)
     @storage = WordStorage.new(words)
   end
 
@@ -13,49 +13,10 @@ class Phrase
 
 end
 
-class WordScanner
+module WordScanner
 
-  attr_accessor :phrase
-
-  PUNCTUATION = /(?!,)[[:punct:]\^$]/
-  DELIMITER   = ','
-  WHITESPACE  = ' '
-
-  def initialize(phrase)
-    @phrase = phrase
-  end
-
-  def split!
-    prepare_phrase
-    split_phrase
-  end
-
-  private
-
-  def prepare_phrase
-    remove_punctuation!
-    remove_whitespace!
-    set_delimitier!
-  end
-
-  def split_phrase
-    self.phrase = phrase.split(DELIMITER).delete_if do |entry|
-      entry.empty?
-    end.map do |word|
-      word.downcase
-    end
-  end
-
-  def remove_punctuation!
-    self.phrase = phrase.gsub(PUNCTUATION, '')
-  end
-
-  def remove_whitespace!
-    self.phrase = phrase.gsub(/\s+/, WHITESPACE)
-  end
-
-  def set_delimitier!
-    self.phrase = phrase.gsub(/\s+/, DELIMITER)
+  def self.scan(phrase)
+    phrase.scan(/\w+/).map(&:downcase)
   end
 
 end
