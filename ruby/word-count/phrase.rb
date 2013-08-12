@@ -3,8 +3,7 @@ class Phrase
   attr_reader :storage
 
   def initialize(phrase)
-    scanner = WordScanner.new(phrase)
-    words = scanner.split!
+    words = WordScanner.new(phrase).split!
     @storage = WordStorage.new(words)
   end
 
