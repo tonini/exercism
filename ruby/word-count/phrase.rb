@@ -16,7 +16,7 @@ end
 module WordScanner
 
   def self.scan(phrase)
-    phrase.scan(/\w+/).map(&:downcase)
+    phrase.downcase.scan(/\w+/)
   end
 
 end
