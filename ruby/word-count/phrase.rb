@@ -23,32 +23,20 @@ end
 
 class WordStorage
 
+  attr_accessor :words
+
   WORD_INC_COUNT = 1
 
   def initialize(words)
-    @words = save(words)
-  end
-
-  def words
-    storage
+    @words = store(words)
   end
 
   private
 
-  def save(words)
-    words.each { |word| store(word) }
-  end
-
-  def store(word)
-    storage[word] = if storage.has_key?(word)
-                      storage[word] + WORD_INC_COUNT
-                    else
-                      WORD_INC_COUNT
-                    end
-  end
-
-  def storage
-    @storage ||= {}
+  def store(words)
+    words.each_with_object(Hash.new(0)) do |word, storage|
+      storage[word] += WORD_INC_COUNT
+    end
   end
 
 end
