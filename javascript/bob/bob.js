@@ -1,23 +1,16 @@
 var StatementAnalyzer = function(text) {
-
-  var text = text;
-
   return {
 
     isSaysNothing: function() {
-      return (!text.length ? true : false);
+      return !text.length;
     },
 
     isAsking: function() {
-      if(text.charAt(text.length - 1) === "?") {
-        return true;
-      } else {
-        return false;
-      }
+      return text.charAt(text.length - 1) === "?";
     },
 
     isYelling: function() {
-      return (text.toUpperCase() === text ? true : false);
+      return text.toUpperCase() === text;
     },
 
   };
