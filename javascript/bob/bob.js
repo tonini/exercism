@@ -1,12 +1,12 @@
 var StatementAnalyzer = function(text) {
   return {
 
-    isSaysNothing: function() {
+    isSilent: function() {
       return !text.length;
     },
 
     isAsking: function() {
-      return text.charAt(text.length - 1) === "?";
+      return text.slice(-1) === "?";
     },
 
     isYelling: function() {
@@ -21,7 +21,7 @@ var Bob = function () {
     hey: function(text) {
       var analyzer = new StatementAnalyzer(text);
 
-      if(analyzer.isSaysNothing()) {
+      if(analyzer.isSilent()) {
         return 'Fine. Be that way!';
       } else if(analyzer.isYelling()) {
         return 'Woah, chill out!';
